@@ -32,6 +32,6 @@ class DeviceRecord extends Model
     }
 
     public function Requests() {
-        return $this->hasOneThrough('App\Models\RecordRequest', 'App\Models\SessionRecord', 'device_id', 'session_id', 'id');
+        return $this->hasOneThrough('App\Models\RecordRequest', 'App\Models\SessionRecord', 'device_id', 'session_id', 'id', 'id');
     }
 }

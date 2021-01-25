@@ -19,4 +19,7 @@ class RecordBloc extends Model
         return $this->hasMany('App\Models\RecordBlocAction', 'id');
     }
 
+    public function Events() {
+        return $this->hasMany('App\Models\RecordBlocEvent', 'id');
+    }
 }

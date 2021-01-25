@@ -17,7 +17,7 @@ class RecordBlocAction extends Model
         'payload'
     ];
 
-    public function RecordBloc() {
+    public function Bloc() {
         return $this->belongsTo('App\Models\RecordBloc', 'id_bloc', 'id');
     }
 }
